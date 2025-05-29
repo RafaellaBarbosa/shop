@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop/models/product.dart';
+import 'package:shop/utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key, required this.product});
@@ -18,15 +19,22 @@ class ProductItem extends StatelessWidget {
           leading: IconButton(
             icon: Icon(
               product.isFavorite ? Icons.favorite : Icons.favorite_border,
+              color:
+                  product.isFavorite
+                      ? Theme.of(context).canvasColor
+                      : Colors.white,
             ),
-            color: Theme.of(context).colorScheme.secondary,
+
             onPressed: () {
               product.toggleFavorite();
             },
           ),
           trailing: IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            color: Theme.of(context).colorScheme.secondary,
+            icon: Icon(
+              Icons.shopping_cart,
+              color: Theme.of(context).canvasColor,
+            ),
+
             onPressed: () {
               //TODO:  Add to cart functionality can be implemented here
               ScaffoldMessenger.of(context).showSnackBar(
@@ -38,18 +46,25 @@ class ProductItem extends StatelessWidget {
             },
           ),
         ),
-        child: Image.network(
-          product.imageUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return const Center(
-              child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
-            );
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(
+              context,
+            ).pushNamed(AppRoutes.productDetail, arguments: product);
           },
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return const Center(child: CircularProgressIndicator());
-          },
+          child: Image.network(
+            product.imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return const Center(
+                child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
+              );
+            },
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ),
     );
