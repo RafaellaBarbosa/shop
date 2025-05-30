@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Product extends ChangeNotifier {
   final String id;
-  final String title;
+  final String name;
   final String description;
   final double price;
   final String imageUrl;
@@ -10,7 +10,7 @@ class Product extends ChangeNotifier {
 
   Product({
     required this.id,
-    required this.title,
+    required this.name,
     required this.description,
     required this.price,
     required this.imageUrl,
@@ -19,6 +19,6 @@ class Product extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Product{id: $id, title: $title, description: $description, price: $price, imageUrl: $imageUrl, isFavorite: $isFavorite}';
+    return 'Product{id: $id, name: $name, description: $description, price: $price, imageUrl: $imageUrl, isFavorite: $isFavorite}';
   }
 }

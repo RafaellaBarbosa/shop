@@ -3,7 +3,7 @@ import 'package:shop/models/product.dart';
 final dummyProducts = [
   Product(
     id: 'p1',
-    title: 'Red Shirt',
+    name: 'Red Shirt',
     description: 'A red shirt - it is pretty red!',
     price: 29.99,
     imageUrl:
@@ -12,7 +12,7 @@ final dummyProducts = [
   ),
   Product(
     id: 'p2',
-    title: 'Trousers',
+    name: 'Trousers',
     description: 'A nice pair of trousers.',
     price: 59.99,
     imageUrl:
@@ -21,7 +21,7 @@ final dummyProducts = [
   ),
   Product(
     id: 'p3',
-    title: 'Yellow Scarf',
+    name: 'Yellow Scarf',
     description: 'Warm and cozy - exactly what you need for the winter.',
     price: 19.99,
     imageUrl: 'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
@@ -29,7 +29,7 @@ final dummyProducts = [
   ),
   Product(
     id: 'p4',
-    title: 'A Pan',
+    name: 'A Pan',
     description: 'Prepare any meal you want.',
     price: 49.99,
     imageUrl:
@@ -39,7 +39,7 @@ final dummyProducts = [
 
   Product(
     id: 'p5',
-    title: 'Smartphone X',
+    name: 'Smartphone X',
     description: 'Um smartphone de última geração com excelente desempenho.',
     price: 3999.99,
     imageUrl: 'https://example.com/images/smartphone.png',
@@ -47,7 +47,7 @@ final dummyProducts = [
   ),
   Product(
     id: 'p5',
-    title: 'Tênis Esportivo',
+    name: 'Tênis Esportivo',
     description: 'Tênis confortável para corrida e atividades físicas.',
     price: 299.99,
     imageUrl: 'https://example.com/images/tenis.png',
@@ -55,7 +55,7 @@ final dummyProducts = [
   ),
   Product(
     id: 'p6',
-    title: 'Cafeteira Elétrica',
+    name: 'Cafeteira Elétrica',
     description: 'Prepare café rapidamente com esta cafeteira prática.',
     price: 199.90,
     imageUrl: 'https://example.com/images/cafeteira.png',
@@ -63,7 +63,7 @@ final dummyProducts = [
   ),
   Product(
     id: 'p7',
-    title: 'Livro de Flutter',
+    name: 'Livro de Flutter',
     description:
         'Aprenda Flutter do básico ao avançado com este guia completo.',
     price: 89.90,

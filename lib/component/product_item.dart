@@ -17,7 +17,7 @@ class ProductItem extends StatelessWidget {
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          title: Text(product.title),
+          title: Text(product.name),
           subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
           leading: IconButton(
             icon: Icon(
@@ -31,8 +31,8 @@ class ProductItem extends StatelessWidget {
                 SnackBar(
                   content: Text(
                     isFavorite
-                        ? '${product.title} removed from favorites!'
-                        : '${product.title} added to favorites!',
+                        ? '${product.name} removed from favorites!'
+                        : '${product.name} added to favorites!',
                   ),
                   duration: const Duration(seconds: 2),
                 ),
@@ -49,7 +49,7 @@ class ProductItem extends StatelessWidget {
               //TODO:  Add to cart functionality can be implemented here
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${product.title} added to cart!'),
+                  content: Text('${product.name} added to cart!'),
                   duration: const Duration(seconds: 2),
                 ),
               );
