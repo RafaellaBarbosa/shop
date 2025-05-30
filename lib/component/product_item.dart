@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/models/product.dart';
+import 'package:shop/models/product_list.dart';
 import 'package:shop/utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key, required this.product});
-
-  final Product product;
+  const ProductItem({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
+    final productList = Provider.of<ProductList>(context);
+    final isFavorite = productList.favoriteProducts.contains(product);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -18,15 +21,22 @@ class ProductItem extends StatelessWidget {
           subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
           leading: IconButton(
             icon: Icon(
-              product.isFavorite ? Icons.favorite : Icons.favorite_border,
-              color:
-                  product.isFavorite
-                      ? Theme.of(context).canvasColor
-                      : Colors.white,
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: isFavorite ? Theme.of(context).canvasColor : Colors.white,
             ),
 
             onPressed: () {
-              product.toggleFavorite();
+              productList.toggleFavorite(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    isFavorite
+                        ? '${product.title} removed from favorites!'
+                        : '${product.title} added to favorites!',
+                  ),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
             },
           ),
           trailing: IconButton(
