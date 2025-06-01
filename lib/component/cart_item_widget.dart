@@ -26,6 +26,49 @@ class CartItemWidget extends StatelessWidget {
           listen: false,
         ).removeItem(cartItem.productId);
       },
+      confirmDismiss: (direction) {
+        return showDialog<bool>(
+          context: context,
+          builder:
+              (ctx) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                title: Row(
+                  children: const [
+                    Icon(Icons.warning, color: Colors.red),
+                    SizedBox(width: 10),
+                    Text('Confirmação'),
+                  ],
+                ),
+                content: const Text(
+                  'Tem certeza que quer excluir este item do carrinho? '
+                  'Essa ação não pode ser desfeita.',
+                  style: TextStyle(fontSize: 16),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(ctx).pop(false),
+                    child: Text(
+                      'Cancelar',
+                      style: TextStyle(color: Colors.grey[700]),
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () => Navigator.of(ctx).pop(true),
+                    icon: const Icon(Icons.delete),
+                    label: const Text('Excluir'),
+                  ),
+                ],
+              ),
+        );
+      },
+
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         child: Padding(

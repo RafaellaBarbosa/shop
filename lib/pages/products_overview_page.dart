@@ -41,18 +41,15 @@ class ProductsOverviewPage extends StatelessWidget {
               }
             },
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 36.0),
-            child: Consumer<Cart>(
-              builder: (context, cart, child) {
-                return IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.cart);
-                  },
-                  icon: BadgeCustom(value: cart.itemCount.toString()),
-                );
-              },
-            ),
+          Consumer<Cart>(
+            builder: (context, cart, child) {
+              return IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes.cart);
+                },
+                icon: BadgeCustom(value: cart.itemCount.toString()),
+              );
+            },
           ),
         ],
       ),
