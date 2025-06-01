@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/component/app_drawer.dart';
 import 'package:shop/component/badge_custom.dart';
 import 'package:shop/component/product_grid.dart';
 import 'package:shop/models/cart.dart';
@@ -17,7 +18,7 @@ class ProductsOverviewPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products Overview'),
+        title: Text('Minha Loja'),
         actions: [
           PopupMenuButton(
             itemBuilder: (context) {
@@ -55,7 +56,7 @@ class ProductsOverviewPage extends StatelessWidget {
           ),
         ],
       ),
-
+      drawer: AppDrawer(),
       body: ProductGrid(),
     );
   }

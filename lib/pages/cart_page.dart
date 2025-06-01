@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/component/cart_item_widget.dart';
 import 'package:shop/models/cart.dart';
+import 'package:shop/models/order_list.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -32,16 +33,71 @@ class CartPage extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  TextButton(onPressed: () {}, child: const Text('COMPRAR')),
+                  ElevatedButton(
+                    onPressed:
+                        cart.itemCount == 0
+                            ? null
+                            : () {
+                              Provider.of<OrderList>(
+                                context,
+                                listen: false,
+                              ).addOrder(cart);
+
+                              cart.clear();
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Pedido realizado com sucesso!',
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                    child: const Text('COMPRAR'),
+                  ),
                 ],
               ),
             ),
           ),
+          const SizedBox(height: 10),
           Expanded(
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (ctx, i) => CartItemWidget(items[i]),
-            ),
+            child:
+                items.isEmpty
+                    ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.shopping_cart_outlined,
+                            size: 100,
+                            color: Colors.grey[400],
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            'Seu carrinho está vazio!',
+                            style: TextStyle(fontSize: 18, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    )
+                    : ListView.builder(
+                      itemCount: items.length,
+                      itemBuilder:
+                          (ctx, i) => TweenAnimationBuilder<double>(
+                            duration: const Duration(milliseconds: 500),
+                            tween: Tween(begin: 0.0, end: 1.0),
+                            builder:
+                                (context, value, child) => Opacity(
+                                  opacity: value,
+                                  child: Transform.translate(
+                                    offset: Offset(50 * (1 - value), 0),
+                                    child: child,
+                                  ),
+                                ),
+                            child: CartItemWidget(items[i]),
+                          ),
+                    ),
           ),
         ],
       ),
