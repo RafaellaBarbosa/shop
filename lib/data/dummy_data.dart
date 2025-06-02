@@ -42,7 +42,8 @@ final dummyProducts = [
     name: 'Smartphone X',
     description: 'Um smartphone de última geração com excelente desempenho.',
     price: 3999.99,
-    imageUrl: 'https://example.com/images/smartphone.png',
+    imageUrl:
+        'https://m.media-amazon.com/images/I/51PEgOzPKLL.__AC_SX300_SY300_QL70_ML2_.jpg',
     isFavorite: false,
   ),
   Product(
@@ -50,7 +51,7 @@ final dummyProducts = [
     name: 'Tênis Esportivo',
     description: 'Tênis confortável para corrida e atividades físicas.',
     price: 299.99,
-    imageUrl: 'https://example.com/images/tenis.png',
+    imageUrl: 'https://imgnike-a.akamaihd.net/768x768/0116875JA1.jpg',
     isFavorite: true,
   ),
   Product(
@@ -58,16 +59,19 @@ final dummyProducts = [
     name: 'Cafeteira Elétrica',
     description: 'Prepare café rapidamente com esta cafeteira prática.',
     price: 199.90,
-    imageUrl: 'https://example.com/images/cafeteira.png',
+    imageUrl:
+        'https://m.media-amazon.com/images/I/51vVvDVetDL.__AC_SX300_SY300_QL70_ML2_.jpg',
     isFavorite: false,
   ),
   Product(
     id: 'p7',
-    name: 'Livro de Flutter',
+    name:
+        'O guia de Dart: Fundamentos, prática, conceitos avançados e tudo mais',
     description:
-        'Aprenda Flutter do básico ao avançado com este guia completo.',
+        'Dart é uma linguagem de programação que está em ascensão. Criada e mantida pelo Google, vem ganhando destaque e apoio da comunidade nos últimos anos, com a popularidade crescente do Flutter. Hoje, ela é considerada multiplataforma, já que a partir dela e de seus frameworks conseguimos gerar aplicações nativas e de alta performance em server-side, na web, em desktop, nos dispositivos mobile e em IoT. Dart é orientada a objetos, com o benefício de ser tipada, possui conceitos de linguagem funcional, ainda em conjunto com um belo suporte a programação reativa. Tudo isso a tem tornado uma grande carta na manga no repertório de pessoas desenvolvedoras.Neste livro, Julio Bitencourt traz um guia de viagem por todo o core da linguagem Dart. Você partirá dos conceitos mais básicos envolvendo a sintaxe, como tipos, operadores, estruturas de repetição, até features mais avançadas da linguagem, como programação assíncrona, generics, streams e isolates. Toda a parte teórica é aprofundada, seguida de prática com exemplos esclarecedores, permeados de dicas e boas práticas para você refinar suas habilidades em Dart. Pegue sua toalha e embarque nessa viagem.',
     price: 89.90,
-    imageUrl: 'https://example.com/images/flutter_book.png',
+    imageUrl:
+        'https://m.media-amazon.com/images/I/51nn2rWyTVL._SY445_SX342_PQ7_.jpg',
     isFavorite: true,
   ),
 ];
