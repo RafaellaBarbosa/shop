@@ -8,12 +8,14 @@ class ProductList extends ChangeNotifier {
 
   List<Product> get items => _showFavoritesOnly ? _favoriteItems : [..._items];
 
-
-
   List<Product> get favoriteProducts => _favoriteItems;
 
   bool _showFavoritesOnly = false;
 
+
+  int get itemsCount {
+    return _items.length;
+  }
   void toggleShowFavoritesOnly() {
     _showFavoritesOnly = true;
     notifyListeners();
