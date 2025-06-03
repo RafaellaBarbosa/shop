@@ -46,14 +46,7 @@ final dummyProducts = [
         'https://m.media-amazon.com/images/I/51PEgOzPKLL.__AC_SX300_SY300_QL70_ML2_.jpg',
     isFavorite: false,
   ),
-  Product(
-    id: 'p5',
-    name: 'Tênis Esportivo',
-    description: 'Tênis confortável para corrida e atividades físicas.',
-    price: 299.99,
-    imageUrl: 'https://imgnike-a.akamaihd.net/768x768/0116875JA1.jpg',
-    isFavorite: true,
-  ),
+
   Product(
     id: 'p6',
     name: 'Cafeteira Elétrica',
@@ -72,6 +65,14 @@ final dummyProducts = [
     price: 89.90,
     imageUrl:
         'https://m.media-amazon.com/images/I/51nn2rWyTVL._SY445_SX342_PQ7_.jpg',
+    isFavorite: true,
+  ),
+  Product(
+    id: 'p8',
+    name: 'Tênis Esportivo',
+    description: 'Tênis confortável para corrida e atividades físicas.',
+    price: 299.99,
+    imageUrl: 'https://imgnike-a.akamaihd.net/768x768/0116875JA1.jpg',
     isFavorite: true,
   ),
 ];
