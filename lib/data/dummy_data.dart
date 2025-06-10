@@ -72,7 +72,8 @@ final dummyProducts = [
     name: 'Tênis Esportivo',
     description: 'Tênis confortável para corrida e atividades físicas.',
     price: 299.99,
-    imageUrl: 'https://imgnike-a.akamaihd.net/768x768/0116875JA1.jpg',
+    imageUrl:
+        'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/8a1c7bb61d804c71b8a1ae920138426b_9366/Tenis_Tensaur_Sport_Training_Lace_Branco_GX9772_01_standard.jpg',
     isFavorite: true,
   ),
 ];
