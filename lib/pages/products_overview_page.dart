@@ -9,13 +9,32 @@ import 'package:shop/utils/app_routes.dart';
 
 enum FilterOptions { favorites, all }
 
-class ProductsOverviewPage extends StatelessWidget {
+class ProductsOverviewPage extends StatefulWidget {
   const ProductsOverviewPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<ProductList>(context);
+  State<ProductsOverviewPage> createState() => _ProductsOverviewPageState();
+}
 
+class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
+  bool _isLoading = true;
+  bool _showFavoriteOnly = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Provider.of<ProductList>(context, listen: false).getProducts().then((
+      value,
+    ) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Minha Loja'),
@@ -35,9 +54,9 @@ class ProductsOverviewPage extends StatelessWidget {
             },
             onSelected: (value) {
               if (value == FilterOptions.favorites) {
-                provider.toggleShowFavoritesOnly();
+                _showFavoriteOnly = true;
               } else {
-                provider.toggleShowAllProducts();
+                _showFavoriteOnly = false;
               }
             },
           ),
@@ -54,7 +73,10 @@ class ProductsOverviewPage extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
-      body: ProductGrid(),
+      body:
+          _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : ProductGrid(_showFavoriteOnly),
     );
   }
 }
