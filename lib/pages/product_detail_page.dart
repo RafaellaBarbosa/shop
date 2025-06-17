@@ -10,7 +10,7 @@ class ProductDetailPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(title: Text(product.name)),
-      body: Column(
+      body: ListView(
         children: [
           Image.network(
             product.imageUrl,
@@ -24,7 +24,7 @@ class ProductDetailPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              '\$${product.price.toStringAsFixed(2)}',
+              'R\$${product.price.toStringAsFixed(2)}',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
