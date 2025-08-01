@@ -8,8 +8,13 @@ import 'package:shop/models/product.dart';
 import 'package:shop/utils/constants.dart';
 
 class ProductList extends ChangeNotifier {
-  final String _baseUrl = Constants.baseUrl;
-  final List<Product> _items = [];
+  final String _token;
+   // ignore: prefer_final_fields
+   List<Product> _items = [];
+
+
+  ProductList(this._token, this._items);
+  
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
@@ -19,33 +24,27 @@ class ProductList extends ChangeNotifier {
     return _items.length;
   }
 
-  Future<void> getProducts() async {
-    try {
-      final response = await http.get(Uri.parse('$_baseUrl/products.json'));
+  Future<void> loadProducts() async {
+    _items.clear();
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
-
-        _items.clear();
-
-        data.forEach((key, value) {
-          _items.add(
-            Product(
-              id: key,
-              name: value['name'],
-              description: value['description'],
-              price: value['price'],
-              imageUrl: value['imageUrl'],
-              isFavorite: value['isFavorite'] ?? false,
-            ),
-          );
-        });
-      }
-
-      notifyListeners();
-    } catch (error) {
-      return;
-    }
+    final response = await http.get(
+      Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'),
+    );
+    if (response.body == 'null') return;
+    Map<String, dynamic> data = jsonDecode(response.body);
+    data.forEach((productId, productData) {
+      _items.add(
+        Product(
+          id: productId,
+          name: productData['name'],
+          description: productData['description'],
+          price: productData['price'],
+          imageUrl: productData['imageUrl'],
+          isFavorite: productData['isFavorite'],
+        ),
+      );
+    });
+    notifyListeners();
   }
 
   Future<void> saveProduct(Map<String, Object> data) {
@@ -69,7 +68,8 @@ class ProductList extends ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final response = await http.post(
-      Uri.parse('$_baseUrl/products.json'),
+      Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'),
+
       body: jsonEncode({
         "name": product.name,
         "description": product.description,
@@ -97,9 +97,10 @@ class ProductList extends ChangeNotifier {
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
-      final url = '$_baseUrl/products/${product.id}.json';
       await http.patch(
-        Uri.parse(url),
+        Uri.parse(
+          '${Constants.productBaseUrl}/${product.id}.json?auth=$_token',
+        ),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           "name": product.name,
@@ -125,7 +126,9 @@ class ProductList extends ChangeNotifier {
       notifyListeners();
 
       final response = await http.delete(
-        Uri.parse('$_baseUrl/${product.id}.json'),
+        Uri.parse(
+          '${Constants.productBaseUrl}/${product.id}.json?auth=$_token',
+        ),
       );
 
       if (response.statusCode >= 400) {

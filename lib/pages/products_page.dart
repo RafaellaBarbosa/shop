@@ -9,7 +9,7 @@ class ProductsPage extends StatelessWidget {
   const ProductsPage({super.key});
 
   Future<void> _refreshProducts(BuildContext context) async {
-    await Provider.of<ProductList>(context, listen: false).getProducts();
+    await Provider.of<ProductList>(context, listen: false).loadProducts();
   }
 
   @override
