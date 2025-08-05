@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/exceptions/auth_exception.dart';
 import 'package:shop/models/auth.dart';
 
 enum AuthMode { signup, login }
@@ -66,7 +67,7 @@ class _AuthFormState extends State<AuthForm> {
       } else {
         await auth.signup(_authData['email']!, _authData['password']!);
       }
-    } on Exception catch (error) {
+    } on AuthException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       _showErrorDialog('Ocorreu um erro inesperado!');
@@ -92,7 +93,6 @@ class _AuthFormState extends State<AuthForm> {
               TextFormField(
                 decoration: const InputDecoration(labelText: 'E-mail'),
                 keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
                 onSaved: (email) => _authData['email'] = email ?? '',
                 validator: (value) {
                   final email = value ?? '';
@@ -101,6 +101,7 @@ class _AuthFormState extends State<AuthForm> {
                   }
                   return null;
                 },
+                textInputAction: TextInputAction.next,
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Senha'),
@@ -122,6 +123,8 @@ class _AuthFormState extends State<AuthForm> {
                     labelText: 'Confirmar Senha',
                   ),
                   keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.done,
+
                   obscureText: true,
                   validator:
                       _isLogin()

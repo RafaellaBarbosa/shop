@@ -54,7 +54,6 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: const Text('Configurações'),
             onTap: () {
-              //TODO:  Navegar para a tela de configurações Navigator.of(context).pushReplacementNamed(AppRoutes.settings);
             },
           ),
           const Divider(),
@@ -62,7 +61,6 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
             onTap: () {
-              //TODO: Aqui você pode adicionar a lógica de logout Navigator.of(context).pushReplacementNamed(AppRoutes.auth);
             },
           ),
         ],

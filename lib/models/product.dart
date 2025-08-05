@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop/utils/constants.dart';
 
-class Product extends ChangeNotifier {
+class Product with ChangeNotifier {
   final String id;
   final String name;
   final String description;
@@ -18,31 +18,21 @@ class Product extends ChangeNotifier {
     required this.description,
     required this.price,
     required this.imageUrl,
-    required this.isFavorite,
+    this.isFavorite = false,
   });
-
-  final String _baseUrl = Constants.baseUrl;
-
-  @override
-  String toString() {
-    return 'Product{id: $id, name: $name, description: $description, price: $price, imageUrl: $imageUrl, isFavorite: $isFavorite}';
-  }
 
   void _toggleFavorite() {
     isFavorite = !isFavorite;
     notifyListeners();
   }
 
-  Future<void> toggleFavorite() async {
+  Future<void> toggleFavorite(String token, String userId) async {
     try {
       _toggleFavorite();
 
-      final url = '$_baseUrl/products/$id.json';
-
-      final response = await http.patch(
-        Uri.parse(url),
-
-        body: jsonEncode({"isFavorite": isFavorite}),
+      final response = await http.put(
+        Uri.parse('${Constants.userFavoritesUrl}/$userId/$id.json?auth=$token'),
+        body: jsonEncode(isFavorite),
       );
 
       if (response.statusCode >= 400) {
