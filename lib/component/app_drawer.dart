@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/models/auth.dart';
 import 'package:shop/utils/app_routes.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -9,23 +11,11 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          UserAccountsDrawerHeader(
-            accountName: const Text('Usuário Exemplo'),
-            accountEmail: const Text('usuario@exemplo.com'),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Text(
-                'U',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+          AppBar(
+            title: const Text('Bem vindo Usuário!'),
+            automaticallyImplyLeading: false,
           ),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.shop),
             title: const Text('Loja'),
@@ -51,16 +41,11 @@ class AppDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Configurações'),
-            onTap: () {
-            },
-          ),
-          const Divider(),
-          ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text('Logout'),
+            title: const Text('Sair'),
             onTap: () {
+              Provider.of<Auth>(context, listen: false).logout();
+              Navigator.of(context).pushReplacementNamed(AppRoutes.authOrHome);
             },
           ),
         ],
