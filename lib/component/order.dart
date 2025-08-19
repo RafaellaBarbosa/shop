@@ -2,46 +2,73 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shop/models/order.dart';
 
-class OrderWidget extends StatelessWidget {
+class OrderWidget extends StatefulWidget {
   final Order order;
 
   const OrderWidget({super.key, required this.order});
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(10),
-      child: ExpansionTile(
-    
-        title: Text(
-          'R\$${order.total.toStringAsFixed(2)}',
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-        subtitle: Text(DateFormat('dd/MM/yyyy hh:mm').format(order.date)),
-        showTrailingIcon: true,
+  State<OrderWidget> createState() => _OrderWidgetState();
+}
 
-        children:
-            order.products
-                .map(
-                  (prod) => ListTile(
-                    title: Text(
-                      prod.name,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    trailing: Text(
-                      '${prod.quantity}x R\$${prod.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
+class _OrderWidgetState extends State<OrderWidget> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final double itemsHeight = (widget.order.products.length * 24) + 10;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      height: _expanded ? itemsHeight + 80 : 80,
+      child: Card(
+        child: Column(
+          children: [
+            ListTile(
+              title: Text('R\$ ${widget.order.total.toStringAsFixed(2)}'),
+              subtitle: Text(
+                DateFormat('dd/MM/yyyy hh:mm').format(widget.order.date),
+              ),
+              trailing: IconButton(
+                icon: const Icon(Icons.expand_more),
+                onPressed: () {
+                  setState(() {
+                    _expanded = !_expanded;
+                  });
+                },
+              ),
+            ),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: _expanded ? itemsHeight : 0,
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+              child: ListView(
+                children:
+                    widget.order.products.map((product) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            product.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '${product.quantity}x R\$ ${product.price}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
